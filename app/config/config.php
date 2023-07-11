@@ -6,16 +6,31 @@
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
+//default database configuration
+$localConfiguration = [
+    'database' => [
+        'adapter'  => 'Mysql',
+        'host'     => '',
+        'username' => '',
+        'password' => '',
+        'dbname'   => '',
+        'charset'  => 'utf8',
+        ]
+];
+
+$localConfigFileName = APP_PATH.'/config/local.php';
+if(file_exists($localConfigFileName)) include 'local.php';
+
 return new \Phalcon\Config([
     'version' => '1.0',
 
     'database' => [
-        'adapter'  => 'Mysql',
-        'host'     => 'localhost',
-        'username' => 'root',
-        'password' => '',
-        'dbname'   => 'test',
-        'charset'  => 'utf8',
+        'adapter'  => $localConfiguration['database']['adapter'],
+        'host'     => $localConfiguration['database']['host'],
+        'username' => $localConfiguration['database']['username'],
+        'password' => $localConfiguration['database']['password'],
+        'dbname'   => $localConfiguration['database']['dbname'],
+        'charset'  => $localConfiguration['database']['charset'],
     ],
 
     'application' => [
