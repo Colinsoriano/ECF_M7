@@ -1,0 +1,17 @@
+<div class="page-header">
+    <h1>Projets</h1>
+    <p>Ceci est la page des projets :</p>
+    <table class="table">
+        <thead>
+        <th>Type</th>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->projetsForTable as $projet) {?>
+            <tr>
+                <td><?php echo projet['type']?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+

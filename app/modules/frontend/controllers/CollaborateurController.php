@@ -5,7 +5,7 @@ namespace Test\Modules\Frontend\Controllers;
 
 use Test\Models\Collaborateur;
 
-class IndexController extends ControllerBase
+class CollaborateurController extends ControllerBase
 {
 
     public function indexAction()
@@ -19,17 +19,17 @@ class IndexController extends ControllerBase
                 'value' => $collaborateur->getId(),
                 'label' => $collaborateur->getPrenom()." ".$collaborateur->getNom(),
             ];
-            
+
             // populate for table content
             $collabsForTable [] = [
                 'prenom' => $collaborateur->getPrenom(),
                 'nom' => $collaborateur->getNom(),
+                'niveau_competence' => $collaborateur->translateNiveau(),
                 'prime' => $collaborateur->getPrimeEmbauche(),
             ];
         }
         $this->view->setVar('collaborateurs' , $collaborateurs);
-        $this->view->setVar('collaborateurs' , $collaborateurs);
+        $this->view->setVar('collabsForTable' , $collabsForTable);
     }
 
 }
-

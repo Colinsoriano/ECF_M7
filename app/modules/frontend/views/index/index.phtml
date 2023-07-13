@@ -1,7 +1,14 @@
 <div class="page-header">
-    <h1>Congratulations!</h1>
+    <h1 class="container" style="text-align: center">Bonjour et bienvenue dans le jeu WebAppSaler</h1>
+    <p>Vous incarnez un développeur talentueux et créatif qui doit concevoir, construire et améliorer des projets uniques.<br>
+        Choisissez votre domaine de prédilection, relevez des défis passionnants, gagnez de l'expérience et débloquez de nouvelles opportunités.<br>
+        Exprimez votre créativité et repoussez les limites de la création numérique.</p>
+    <p>Prêt à jouer ?</p>
+    <hr>
+    <label for="collaborateur">Pour commencer, choisissez un projet et assigner une équipe :</label>
+    <select id="collaborateur" name="collaborateur" style="width: 75%">
+        <?php foreach ($this->view->collaborateurs as $collaborateur) {?>
+            <option value="<?php echo $collaborateur['value']?>"><?php echo $collaborateur['label']?></option>
+        <?php } ?>
+    </select>
 </div>
-
-<p>Given param = <?php echo $this->view->param ?></p>
-
-<p>This page is located at <code>views/index/index.phtml</code></p>

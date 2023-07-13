@@ -1,0 +1,23 @@
+<div class="page-header">
+    <h1>Collaborateur</h1>
+    <p>Ceci est la page des collaborateurs :</p>
+    <table class="table">
+        <thead>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Niveau de compétence</th>
+        <th>Prime</th>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->collabsForTable as $collaborateur) {?>
+            <tr>
+                <td><?php echo $collaborateur['prenom']?></td>
+                <td><?php echo $collaborateur['nom']?></td>
+                <td><?php echo $collaborateur['niveau_competence']?></td>
+                <td><?php echo $collaborateur['prime']?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+

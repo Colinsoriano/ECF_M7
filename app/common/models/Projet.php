@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\Models;
+
 class Projet extends \Phalcon\Mvc\Model
 {
 
@@ -39,6 +41,21 @@ class Projet extends \Phalcon\Mvc\Model
      * @Column(column="type", type="string", length='1','2','3', nullable=false)
      */
     protected $type;
+
+    const _TYPE_1_APPLICATION_ = 1;
+    const _TYPE_2_MODULE_ = 2;
+    const _TYPE_3_COMPOSANT_ = 3;
+
+    /* cette methode sert à traduire les types des projets*/
+    public function translateType( ) : string
+    {
+        switch ($this->getType()){
+            case self::_TYPE_1_APPLICATION_:return 'Application';
+            case self::_TYPE_2_MODULE_ :return 'Module';
+            case self::_TYPE_3_COMPOSANT_:return 'Composant';
+            default : return 'Pas de projet'  ;
+        }
+    }
 
     /**
      *
@@ -252,7 +269,7 @@ class Projet extends \Phalcon\Mvc\Model
      */
     public function getType()
     {
-        return $this->type;
+        return intval($this->type);
     }
 
     /**

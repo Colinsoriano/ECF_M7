@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\Models;
+
 class Collaborateur extends \Phalcon\Mvc\Model
 {
 
@@ -31,6 +33,21 @@ class Collaborateur extends \Phalcon\Mvc\Model
      * @Column(column="niveau_competence", type="string", length='1','2','3', nullable=false)
      */
     protected $niveau_competence;
+
+    const _NIVEAU_1_STAGIAIRE_ = 1;
+    const _NIVEAU_2_JUNIOR_ = 2;
+    const _NIVEAU_3_SENIOR_ = 3;
+
+    /* cette methode sert à traduire les niveaux des collaborateurs*/
+    public function translateNiveau( ) : string
+    {
+        switch ($this->getNiveauCompetence()){
+            case self::_NIVEAU_1_STAGIAIRE_:return 'Stagiaire';
+            case self::_NIVEAU_2_JUNIOR_ :return 'Junior';
+            case self::_NIVEAU_3_SENIOR_:return 'Senior';
+            default : return 'Pas de niveau'  ;
+        }
+    }
 
     /**
      *
