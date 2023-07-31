@@ -17,7 +17,7 @@ class CollaborateurController extends ControllerBase
             // populate for select options
             $collaborateurs [] = [
                 'value' => $collaborateur->getId(),
-                'label' => $collaborateur->getPrenom()." ".$collaborateur->getNom(),
+                'label' => $collaborateur->getPrenom()." ".$collaborateur->getNom()." ".$collaborateur->translateNiveau(),
             ];
 
             // populate for table content

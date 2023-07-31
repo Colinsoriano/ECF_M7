@@ -1,14 +1,102 @@
 <div class="page-header">
     <h1 class="container" style="text-align: center">Bonjour et bienvenue dans le jeu WebAppSaler</h1>
-    <p>Vous incarnez un développeur talentueux et créatif qui doit concevoir, construire et améliorer des projets uniques.<br>
-        Choisissez votre domaine de prédilection, relevez des défis passionnants, gagnez de l'expérience et débloquez de nouvelles opportunités.<br>
-        Exprimez votre créativité et repoussez les limites de la création numérique.</p>
+    <p>Vous incarnez un développeur talentueux et créatif qui doit concevoir, construire et améliorer des projets uniques.</p>
+    <p>Choisissez votre domaine de prédilection, relevez des défis passionnants, gagnez de l'expérience et débloquez de nouvelles opportunités.</p>
+    <p>Exprimez votre créativité et repoussez les limites de la création numérique.</p>
     <p>Prêt à jouer ?</p>
     <hr>
-    <label for="collaborateur">Pour commencer, choisissez un projet et assigner une équipe :</label>
-    <select id="collaborateur" name="collaborateur" style="width: 75%">
-        <?php foreach ($this->view->collaborateurs as $collaborateur) {?>
-            <option value="<?php echo $collaborateur['value']?>"><?php echo $collaborateur['label']?></option>
-        <?php } ?>
-    </select>
+
+    <!-- Bouton Lancer une partie ouvre un popup avec le choix du projet et la composition de l'équipe -->
+    <div style="text-align: center;">
+        <button onclick="openPopup()">Pour commencer, créer une partie</button>
+    </div>
+
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #f0f0f0; padding: 20px; text-align: center;">
+        <h3>Choisir un projet</h3>
+        <!-- <select id="projectSelect" style="width: 100%">
+            <option value="projet1">Application</option>
+            <option value="projet2">Module</option>
+            <option value="projet3">Composant</option>
+        </select> -->
+
+        <div style="display: flex; align-items: center;">
+        <select style="flex: 1;" id="projet" name="projet" id="projet-select">
+            <?php foreach ($this->view->projet as $projet) {?>
+                <option value="<?php echo $projet['value']?>"><?php echo $projet['label']?></option>
+            <?php } ?>
+        </select>
+        </div>
+
+        <br><br>
+        <h3>Constituez une équipe</h3>
+        <div style="display: flex; align-items: center;">
+
+            <select style="flex: 1;" id="collaborateur" name="collaborateur" id="collaborateur-select">
+                <?php foreach ($this->view->collaborateurs as $collaborateur) {?>
+                    <option value="<?php echo $collaborateur['value']?>"><?php echo $collaborateur['label']?></option>
+                <?php } ?>
+            </select>
+
+            <button type="button" onclick="addMember()">+</button> <!-- Bouton d'ajout -->
+        </div>
+        <br><br>
+        <div id="addedMembers">
+            <!-- Zone d'affichage des membres de l'équipe ajoutés -->
+            <h3>Membres de l'équipe ajoutés :</h3>
+            <ul id="teamMembers" style="list-style-type: none; padding: 0;"></ul>
+        </div>
+        <br><br>
+        <button type="button" onclick="onSubmitForm()">Valider</button>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function onSubmitForm() {
+            // Votre code de validation du formulaire ici
+
+            // Fermer le popup
+            document.getElementById("popup").style.display = "none";
+
+            // Empêcher le formulaire de se soumettre normalement
+            return false;
+        }
+
+        function addMember() {
+            const collaborateurSelect = document.getElementById("collaborateur");
+            const selectedCollaborateur = collaborateurSelect.options[collaborateurSelect.selectedIndex];
+            if (selectedCollaborateur.value !== "") {
+                const addedMembersDiv = document.getElementById("addedMembers");
+
+                // Créer un conteneur pour chaque collaborateur ajouté avec les boutons "+" et "-"
+                const collaborateurContainer = document.createElement("div");
+                collaborateurContainer.style.display = "flex";
+                collaborateurContainer.style.alignItems = "center";
+                collaborateurContainer.style.justifyContent = "space-between"; // Aligner les boutons à droite
+                collaborateurContainer.style.marginBottom = "5px"; // Espacement entre les collaborateurs ajoutés
+
+                // Créer le contenu du collaborateur ajouté
+                const collaborateurName = selectedCollaborateur.textContent;
+
+                // Créer le bouton de suppression
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "-";
+                deleteButton.type = "button";
+                deleteButton.style.marginLeft = "10px"; // Espacement entre le bouton "+" et le bouton "-"
+                deleteButton.onclick = function() {
+                    // Supprimer le conteneur entier contenant les informations du collaborateur ajouté
+                    addedMembersDiv.removeChild(collaborateurContainer);
+                };
+
+                collaborateurContainer.textContent = collaborateurName;
+                collaborateurContainer.appendChild(deleteButton);
+
+                addedMembersDiv.appendChild(collaborateurContainer);
+
+                // Vous pouvez également stocker les membres ajoutés dans une variable ou un tableau pour les utiliser ultérieurement
+            }
+        }
+    </script>
 </div>

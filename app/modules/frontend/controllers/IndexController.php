@@ -19,7 +19,7 @@ class IndexController extends ControllerBase
                 'value' => $collaborateur->getId(),
                 'label' => $collaborateur->getPrenom()." ".$collaborateur->getNom(),
             ];
-            
+
             // populate for table content
             $collabsForTable [] = [
                 'prenom' => $collaborateur->getPrenom(),
@@ -27,7 +27,6 @@ class IndexController extends ControllerBase
                 'prime' => $collaborateur->getPrimeEmbauche(),
             ];
         }
-        $this->view->setVar('collaborateurs' , $collaborateurs);
         $this->view->setVar('collaborateurs' , $collaborateurs);
     }
 
