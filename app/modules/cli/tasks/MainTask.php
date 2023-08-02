@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Test\Modules\Cli\Tasks;
 
-class MainTask extends \Phalcon\Cli\Task
+use Phalcon\Cli\Task;
+
+class MainTask extends Task
 {
     public function mainAction()
     {

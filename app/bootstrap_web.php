@@ -55,7 +55,7 @@ try {
 
     echo $application->handle($_GET['_url'] ?? '/')->getContent();
     /**echo $application->handle($_SERVER['REQUEST_URI'])->getContent();**/
-} catch (\Exception $e) {
+} catch (Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
 }
