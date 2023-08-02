@@ -3,6 +3,9 @@
  * Modified: prepend directory path of current file, because of this file own different ENV under between Apache and command line.
  * NOTE: please remove this comment.
  */
+
+use Phalcon\Config;
+
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
@@ -21,7 +24,7 @@ $localConfiguration = [
 $localConfigFileName = APP_PATH.'/config/local.php';
 if(file_exists($localConfigFileName)) include 'local.php';
 
-return new \Phalcon\Config([
+return new Config([
     'version' => '1.0',
 
     'database' => [
