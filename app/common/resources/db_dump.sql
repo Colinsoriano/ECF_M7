@@ -25,47 +25,28 @@ DROP TABLE IF EXISTS `application`;
 CREATE TABLE `application` (
   `id` int NOT NULL,
   `libelle` varchar(25) NOT NULL,
-  `id_client` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_application` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `application`
+-- Table structure for table `chefDeProjet`
 --
 
-LOCK TABLES `application` WRITE;
-/*!40000 ALTER TABLE `application` DISABLE KEYS */;
-/*!40000 ALTER TABLE `application` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `chef_de_projet`
---
-
-DROP TABLE IF EXISTS `chef_de_projet`;
+DROP TABLE IF EXISTS `chefDeProjet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chef_de_projet` (
+CREATE TABLE `chefDeProjet` (
   `id` int NOT NULL AUTO_INCREMENT,
   `boost_production` int DEFAULT NULL,
   `id_collaborateur` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_chefdeprojet` (`id`),
-  CONSTRAINT `chef_de_projet_collaborateur_id_chefdeprojet_fk` FOREIGN KEY (`id`) REFERENCES `collaborateur` (`id`) ON UPDATE CASCADE
+  KEY `chef_de_projet_collaborateur_id_chefdeprojet_fk` (`id_collaborateur`),
+  CONSTRAINT `chef_de_projet_collaborateur_id_chefdeprojet_fk` FOREIGN KEY (`id_collaborateur`) REFERENCES `collaborateur` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chef_de_projet`
---
-
-LOCK TABLES `chef_de_projet` WRITE;
-/*!40000 ALTER TABLE `chef_de_projet` DISABLE KEYS */;
-INSERT INTO `chef_de_projet` VALUES (1,10,1),(2,5,2),(3,15,3),(4,8,4),(5,12,5);
-/*!40000 ALTER TABLE `chef_de_projet` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `client`
@@ -87,16 +68,6 @@ CREATE TABLE `client` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `client`
---
-
-LOCK TABLES `client` WRITE;
-/*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Client A','1234567890',1),(2,'Client B','9876543210',0),(3,'Client C','5555555555',1),(4,'Client D','9999999999',0),(5,'Client E','7777777777',1);
-/*!40000 ALTER TABLE `client` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `collaborateur`
 --
 
@@ -114,16 +85,6 @@ CREATE TABLE `collaborateur` (
   UNIQUE KEY `id_chefdeprojet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `collaborateur`
---
-
-LOCK TABLES `collaborateur` WRITE;
-/*!40000 ALTER TABLE `collaborateur` DISABLE KEYS */;
-INSERT INTO `collaborateur` VALUES (2,'Alice','MARTIN','2',800),(1,'Jean','DUPONT','1',500),(3,'Paul','LEFEVRE','3',1200),(4,'Sophie','LECLERC','2',750),(5,'Thomas','DUBOIS','1',550);
-/*!40000 ALTER TABLE `collaborateur` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `composant`
@@ -147,15 +108,6 @@ CREATE TABLE `composant` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `composant`
---
-
-LOCK TABLES `composant` WRITE;
-/*!40000 ALTER TABLE `composant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `composant` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `composition_equipe`
 --
 
@@ -174,15 +126,6 @@ CREATE TABLE `composition_equipe` (
   CONSTRAINT `composition_equipe_equipe_id_fk` FOREIGN KEY (`id_equipe`) REFERENCES `equipe` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `composition_equipe`
---
-
-LOCK TABLES `composition_equipe` WRITE;
-/*!40000 ALTER TABLE `composition_equipe` DISABLE KEYS */;
-/*!40000 ALTER TABLE `composition_equipe` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `developpeur`
@@ -204,16 +147,6 @@ CREATE TABLE `developpeur` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `developpeur`
---
-
-LOCK TABLES `developpeur` WRITE;
-/*!40000 ALTER TABLE `developpeur` DISABLE KEYS */;
-INSERT INTO `developpeur` VALUES (1,1,80,'2'),(2,2,95,'3'),(3,3,70,'1'),(4,4,85,'2'),(5,5,60,'1');
-/*!40000 ALTER TABLE `developpeur` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `equipe`
 --
 
@@ -227,18 +160,9 @@ CREATE TABLE `equipe` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `equipe_chef_de_projet_id_fk` (`id_chefdeprojet`),
-  CONSTRAINT `equipe_chef_de_projet_id_fk` FOREIGN KEY (`id_chefdeprojet`) REFERENCES `chef_de_projet` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `equipe_chef_de_projet_id_fk` FOREIGN KEY (`id_chefdeprojet`) REFERENCES `chefDeProjet` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `equipe`
---
-
-LOCK TABLES `equipe` WRITE;
-/*!40000 ALTER TABLE `equipe` DISABLE KEYS */;
-/*!40000 ALTER TABLE `equipe` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `module`
@@ -259,15 +183,6 @@ CREATE TABLE `module` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `module`
---
-
-LOCK TABLES `module` WRITE;
-/*!40000 ALTER TABLE `module` DISABLE KEYS */;
-/*!40000 ALTER TABLE `module` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `projet`
 --
 
@@ -279,6 +194,7 @@ CREATE TABLE `projet` (
   `id_client` int NOT NULL,
   `id_developpeur` int DEFAULT NULL,
   `id_chefdeprojet` int DEFAULT NULL,
+  `nom` varchar(25) NOT NULL,
   `type` enum('1','2','3') NOT NULL,
   `id_application` int DEFAULT NULL,
   `id_module` int DEFAULT NULL,
@@ -286,19 +202,21 @@ CREATE TABLE `projet` (
   `prix` int NOT NULL,
   `statut` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  KEY `projet_application_id_fk` (`id_application`),
+  KEY `projet_chefDeProjet_id_fk` (`id_chefdeprojet`),
+  KEY `projet_client_id_client_fk` (`id_client`),
+  KEY `projet_composant_id_fk` (`id_composant`),
+  KEY `projet_developpeur_id_fk` (`id_developpeur`),
+  KEY `projet_module_id_fk` (`id_module`),
+  CONSTRAINT `projet_application_id_fk` FOREIGN KEY (`id_application`) REFERENCES `application` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `projet_chefDeProjet_id_fk` FOREIGN KEY (`id_chefdeprojet`) REFERENCES `chefDeProjet` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `projet_client_id_client_fk` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON UPDATE CASCADE,
+  CONSTRAINT `projet_composant_id_fk` FOREIGN KEY (`id_composant`) REFERENCES `composant` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `projet_developpeur_id_fk` FOREIGN KEY (`id_developpeur`) REFERENCES `developpeur` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `projet_module_id_fk` FOREIGN KEY (`id_module`) REFERENCES `module` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `projet`
---
-
-LOCK TABLES `projet` WRITE;
-/*!40000 ALTER TABLE `projet` DISABLE KEYS */;
-INSERT INTO `projet` VALUES (1,1,NULL,NULL,'1',NULL,NULL,NULL,1000,'0'),(2,2,NULL,NULL,'2',NULL,NULL,NULL,3000,'0'),(3,3,NULL,NULL,'3',NULL,NULL,NULL,5000,'0');
-/*!40000 ALTER TABLE `projet` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -309,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-13 17:19:46
+-- Dump completed on 2023-08-03 16:15:28

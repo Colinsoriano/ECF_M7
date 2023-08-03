@@ -2,7 +2,12 @@
 
 namespace Test\Models;
 
-class Collaborateur extends \Phalcon\Mvc\Model
+use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\ResultInterface;
+use Phalcon\Mvc\Model\ResultsetInterface;
+use Phalcon\Mvc\ModelInterface;
+
+class Collaborateur extends Model
 {
 
     /**
@@ -178,17 +183,17 @@ class Collaborateur extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("collaborateur");
-        $this->hasMany('id', 'ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
-        $this->hasMany('id', 'Developpeur', 'id_collaborateur', ['alias' => 'Developpeur']);
+        $this->hasMany('id', 'Test\Models\ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
+        $this->hasMany('id', 'Test\Models\Developpeur', 'id_collaborateur', ['alias' => 'Developpeur']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Collaborateur[]|Collaborateur|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Collaborateur[]|Collaborateur|ResultSetInterface
      */
-    public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
+    public static function find($parameters = null): ResultsetInterface
     {
         return parent::find($parameters);
     }
@@ -197,9 +202,9 @@ class Collaborateur extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Collaborateur|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Collaborateur|ResultInterface|ModelInterface|null
      */
-    public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
+    public static function findFirst($parameters = null): ?ModelInterface
     {
         return parent::findFirst($parameters);
     }

@@ -107,8 +107,8 @@ class CompositionEquipe extends Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("composition_equipe");
-        $this->belongsTo('id_developpeur', '\Developpeur', 'id', ['alias' => 'Developpeur']);
-        $this->belongsTo('id_equipe', '\Equipe', 'id', ['alias' => 'Equipe']);
+        $this->belongsTo('id_developpeur', 'Test\Models\Developpeur', 'id', ['alias' => 'Developpeur']);
+        $this->belongsTo('id_equipe', 'Test\Models\Equipe', 'id', ['alias' => 'Equipe']);
     }
 
     /**

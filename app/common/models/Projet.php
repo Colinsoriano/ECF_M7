@@ -2,7 +2,12 @@
 
 namespace Test\Models;
 
-class Projet extends \Phalcon\Mvc\Model
+use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\ResultInterface;
+use Phalcon\Mvc\Model\ResultsetInterface;
+use Phalcon\Mvc\ModelInterface;
+
+class Projet extends Model
 {
 
     /**
@@ -38,6 +43,13 @@ class Projet extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
+     * @Column(column="nom", type="string", length=75, nullable=true)
+     */
+    protected $nom;
+
+    /**
+     *
+     * @var string
      * @Column(column="type", type="string", length='1','2','3', nullable=false)
      */
     protected $type;
@@ -50,11 +62,18 @@ class Projet extends \Phalcon\Mvc\Model
     public function translateType( ) : string
     {
         switch ($this->getType()){
-            case self::_TYPE_1_APPLICATION_:return 'Application';
-            case self::_TYPE_2_MODULE_ :return 'Module';
-            case self::_TYPE_3_COMPOSANT_:return 'Composant';
+            case self::_TYPE_1_APPLICATION_: return 'Application';
+            case self::_TYPE_2_MODULE_ : return 'Module';
+            case self::_TYPE_3_COMPOSANT_: return 'Composant';
             default : return 'Pas de projet'  ;
         }
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -98,12 +117,6 @@ class Projet extends \Phalcon\Mvc\Model
      * @param integer $id
      * @return $this
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Method to set the value of field id_client
@@ -140,6 +153,19 @@ class Projet extends \Phalcon\Mvc\Model
     public function setIdChefdeprojet($id_chefdeprojet)
     {
         $this->id_chefdeprojet = $id_chefdeprojet;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field nom
+     *
+     * @param string $nom
+     * @return $this
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
 
         return $this;
     }
@@ -263,6 +289,16 @@ class Projet extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
      * Returns the value of field type
      *
      * @return string
@@ -329,15 +365,21 @@ class Projet extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("projet");
+        $this->hasOne('id_client', 'Test\Models\Client', 'id', ['alias' => 'Client']);
+        $this->hasOne('id_chefdeprojet', 'Test\Models\Projet', 'id', ['alias' => 'ChefDeProjet']);
+        $this->hasMany('id_developpeur', 'Test\Models\Developpeur', 'id', ['alias' => 'Developpeur']);
+        $this->hasOne('id_application', 'Test\Models\Application', 'id', ['alias' => 'Application']);
+        $this->hasOne('id_module', 'Test\Models\Module', 'id', ['alias' => 'Module']);
+        $this->hasOne('id_composant', 'Test\Models\Composant', 'id', ['alias' => 'Composant']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Projet[]|Projet|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Projet[]|Projet|ResultSetInterface
      */
-    public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
+    public static function find($parameters = null): ResultsetInterface
     {
         return parent::find($parameters);
     }
@@ -346,9 +388,9 @@ class Projet extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Projet|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Projet|ResultInterface|ModelInterface|null
      */
-    public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
+    public static function findFirst($parameters = null): ?ModelInterface
     {
         return parent::findFirst($parameters);
     }

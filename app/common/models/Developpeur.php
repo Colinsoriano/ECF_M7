@@ -1,6 +1,10 @@
 <?php
 
-class Developpeur extends \Phalcon\Mvc\Model
+namespace Test\Models;
+
+use Phalcon\Mvc\Model;
+
+class Developpeur extends Model
 {
 
     /**
@@ -132,8 +136,8 @@ class Developpeur extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("developpeur");
-        $this->hasMany('id', 'CompositionEquipe', 'id_developpeur', ['alias' => 'CompositionEquipe']);
-        $this->belongsTo('id_collaborateur', '\Collaborateur', 'id', ['alias' => 'Collaborateur']);
+        $this->hasMany('id', 'Test\Models\CompositionEquipe', 'id_developpeur', ['alias' => 'CompositionEquipe']);
+        $this->belongsTo('id_collaborateur', 'Test\Models\Collaborateur', 'id', ['alias' => 'Collaborateur']);
     }
 
     /**
@@ -156,6 +160,23 @@ class Developpeur extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
         return parent::findFirst($parameters);
+    }
+
+    /** custom functions */
+
+    const _COMPETENCE_1_FRONT_ = 1;
+    const _COMPETENCE_2_BACK_ = 2;
+    const _COMPETENCE_3_BDD_ = 3;
+
+    // cette methode sert à traduire les competences des developpeurs
+    public function translateCompetence( ) : string
+    {
+        switch ($this->getCompetence( )){
+            case self::_COMPETENCE_1_FRONT_:return 'FrontEnd';
+            case self::_COMPETENCE_2_BACK_ :return 'BackEnd';
+            case self::_COMPETENCE_3_BDD_:return 'Administrateur de base de données';
+            default : return 'Competence inconnue';
+        }
     }
 
 }

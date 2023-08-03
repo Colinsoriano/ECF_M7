@@ -1,6 +1,13 @@
 <?php
 
-class ChefDeProjet extends \Phalcon\Mvc\Model
+namespace Test\Models;
+
+use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\ResultInterface;
+use Phalcon\Mvc\Model\ResultsetInterface;
+use Phalcon\Mvc\ModelInterface;
+
+class ChefDeProjet extends Model
 {
 
     /**
@@ -101,18 +108,18 @@ class ChefDeProjet extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("ECF_C7");
-        $this->setSource("chef_de_projet");
-        $this->hasMany('id', 'Equipe', 'id_chefdeprojet', ['alias' => 'Equipe']);
-        $this->belongsTo('id', '\Collaborateur', 'id', ['alias' => 'Collaborateur']);
+        $this->setSource("chefDeProjet");
+        $this->hasMany('id', 'Test\Models\Equipe', 'id_chefdeprojet', ['alias' => 'Equipe']);
+        $this->belongsTo('id_collaborateur', 'Test\Models\Collaborateur', 'id', ['alias' => 'Collaborateur']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ChefDeProjet[]|ChefDeProjet|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return ChefDeProjet[]|ChefDeProjet|ResultSetInterface
      */
-    public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
+    public static function find($parameters = null): ResultsetInterface
     {
         return parent::find($parameters);
     }
@@ -121,11 +128,21 @@ class ChefDeProjet extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ChefDeProjet|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return ChefDeProjet|ResultInterface|ModelInterface|null
      */
-    public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
+    public static function findFirst($parameters = null): ?ModelInterface
     {
         return parent::findFirst($parameters);
     }
 
+    /** custom function */
+
+    public function getPrenom()
+    {
+        return $this->Collaborateur->getPrenom();
+    }
+    public function getNom()
+    {
+        return $this->Collaborateur->getNom();
+    }
 }

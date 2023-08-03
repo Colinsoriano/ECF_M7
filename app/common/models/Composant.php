@@ -196,7 +196,7 @@ class Composant extends Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("composant");
-        $this->belongsTo('id_module', '\Module', 'id', ['alias' => 'Module']);
+        $this->belongsTo('id_module', 'Test\Models\Module', 'id', ['alias' => 'Module']);
     }
 
     /**

@@ -106,8 +106,8 @@ class Module extends Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("module");
-        $this->hasMany('id', 'Composant', 'id_module', ['alias' => 'Composant']);
-        $this->belongsTo('id_application', '\Application', 'id', ['alias' => 'Application']);
+        $this->hasMany('id', 'Test\Models\Composant', 'id_module', ['alias' => 'Composant']);
+        $this->belongsTo('id_application', 'Test\Models\Application', 'id', ['alias' => 'Application']);
     }
 
     /**

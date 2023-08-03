@@ -24,13 +24,6 @@ class Application extends Model
     protected $libelle;
 
     /**
-     *
-     * @var integer
-     * @Column(column="id_client", type="integer", nullable=true)
-     */
-    protected $id_client;
-
-    /**
      * Method to set the value of field id
      *
      * @param integer $id
@@ -57,19 +50,6 @@ class Application extends Model
     }
 
     /**
-     * Method to set the value of field id_client
-     *
-     * @param integer $id_client
-     * @return $this
-     */
-    public function setIdClient($id_client)
-    {
-        $this->id_client = $id_client;
-
-        return $this;
-    }
-
-    /**
      * Returns the value of field id
      *
      * @return integer
@@ -90,23 +70,13 @@ class Application extends Model
     }
 
     /**
-     * Returns the value of field id_client
-     *
-     * @return integer
-     */
-    public function getIdClient()
-    {
-        return $this->id_client;
-    }
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("ECF_C7");
         $this->setSource("application");
-        $this->hasMany('id', 'Module', 'id_application', ['alias' => 'Module']);
+        $this->hasMany('id', 'Test\Models\Module', 'id_application', ['alias' => 'Module']);
     }
 
     /**

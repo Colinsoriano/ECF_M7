@@ -1,6 +1,13 @@
 <?php
 
-class Client extends \Phalcon\Mvc\Model
+namespace Test\Models;
+
+use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\ResultInterface;
+use Phalcon\Mvc\Model\ResultsetInterface;
+use Phalcon\Mvc\ModelInterface;
+
+class Client extends Model
 {
 
     /**
@@ -32,6 +39,16 @@ class Client extends \Phalcon\Mvc\Model
      * @Column(column="ss2i", type="integer", length=1, nullable=false)
      */
     protected $ss2i;
+    const _1_ = 1;
+    const _0_ = 0;
+    public function translateSs2i( ) : string
+    {
+        switch ($this->getSs2i()){
+            case self::_1_:return 'Oui';
+            case self::_0_ :return 'Non' ;
+            default : return ' '  ;
+        }
+    }
 
     /**
      * Method to set the value of field id_client
@@ -39,6 +56,7 @@ class Client extends \Phalcon\Mvc\Model
      * @param integer $id_client
      * @return $this
      */
+
     public function setIdClient($id_client)
     {
         $this->id_client = $id_client;
@@ -132,15 +150,16 @@ class Client extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("client");
+        $this->belongsTo('id', 'Test\Models\Projet', 'id_client', ['alias' => 'Projet']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Client[]|Client|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Client[]|Client|ResultSetInterface
      */
-    public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
+    public static function find($parameters = null): ResultsetInterface
     {
         return parent::find($parameters);
     }
@@ -149,9 +168,9 @@ class Client extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Client|ResultInterface|ModelInterface|null
      */
-    public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
+    public static function findFirst($parameters = null): ?ModelInterface
     {
         return parent::findFirst($parameters);
     }

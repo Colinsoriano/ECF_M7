@@ -107,8 +107,8 @@ class Equipe extends Model
     {
         $this->setSchema("ECF_C7");
         $this->setSource("equipe");
-        $this->hasMany('id', 'CompositionEquipe', 'id_equipe', ['alias' => 'CompositionEquipe']);
-        $this->belongsTo('id_chefdeprojet', '\ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
+        $this->hasMany('id', 'Test\Models\CompositionEquipe', 'id_equipe', ['alias' => 'CompositionEquipe']);
+        $this->belongsTo('id_chefdeprojet', 'Test\Models\ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
     }
 
     /**
