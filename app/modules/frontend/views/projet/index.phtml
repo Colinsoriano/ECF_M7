@@ -1,17 +1,25 @@
 <div class="page-header">
-    <h1>Projets</h1>
-    <p>Ceci est la page des projets :</p>
+    <h1 style=" padding-top: 50px;">Types de projets</h1>
+    <p>Ceci est la page des types de projets :</p>
+    <ul>
+        <li>Une <b>Application</b> peut avoir plusieurs <b>Modules</b> ;</li>
+        <li>Un <b>Module</b> peut avoir plusieurs <b>composants</b>.</li>
+    </ul>
+    <p>Les <b>SS2I</b> achètent des <b>modules</b> ou des <b>composants</b> mais pas d'application.</p>
+    <p>Les <b>non SS2I</b> achètent des <b>applications</b> ou des <b>modules</b> mais pas de composants.</p>
     <table class="table">
         <thead>
-        <th>Type</th>
+        <th>Types de projet disponibles</th>
         </thead>
         <tbody>
+
         <?php foreach ($this->view->projetsForTable as $projet) {?>
             <tr>
-                <td><?php echo projet['type']?></td>
+                <td><?php echo $projet['type']?></td>
             </tr>
         <?php } ?>
         </tbody>
+
     </table>
 </div>
 
