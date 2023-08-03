@@ -1,0 +1,21 @@
+<div class="page-header">
+    <h1 style=" padding-top: 50px;">Chefs de projet</h1>
+    <p>Ceci est la page des Chefs de projet.</p>
+    <table class="table">
+        <thead>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Indice de production</th>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->chefsDeProjetForTable as $chefDeProjet) {?>
+            <tr>
+                <td><?php echo $chefDeProjet['prenom']?></td>
+                <td><?php echo $chefDeProjet['nom']?></td>
+                <td><?php echo $chefDeProjet['boost']?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
