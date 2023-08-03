@@ -1,102 +1,55 @@
 <div class="page-header">
-    <h1 class="container" style="text-align: center">Bonjour et bienvenue dans le jeu WebAppSaler</h1>
+    <h1 class="container" style="text-align: center; padding-top: 50px;">Bonjour et bienvenue dans le jeu WebAppSaler</h1>
     <p>Vous incarnez un développeur talentueux et créatif qui doit concevoir, construire et améliorer des projets uniques.</p>
     <p>Choisissez votre domaine de prédilection, relevez des défis passionnants, gagnez de l'expérience et débloquez de nouvelles opportunités.</p>
     <p>Exprimez votre créativité et repoussez les limites de la création numérique.</p>
     <p>Prêt à jouer ?</p>
     <hr>
-
     <!-- Bouton Lancer une partie ouvre un popup avec le choix du projet et la composition de l'équipe -->
-    <div style="text-align: center;">
-        <button onclick="openPopup()">Pour commencer, créer une partie</button>
-    </div>
-
-    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #f0f0f0; padding: 20px; text-align: center;">
-        <h3>Choisir un projet</h3>
-        <!-- <select id="projectSelect" style="width: 100%">
-            <option value="projet1">Application</option>
-            <option value="projet2">Module</option>
-            <option value="projet3">Composant</option>
-        </select> -->
-
-        <div style="display: flex; align-items: center;">
-        <select style="flex: 1;" id="projet" name="projet" id="projet-select">
-            <?php foreach ($this->view->projet as $projet) {?>
-                <option value="<?php echo $projet['value']?>"><?php echo $projet['label']?></option>
+    <h3>Pour commencer, créer une partie</h3>
+    <label for="client-select">Choisissez un client :</label>
+    <div style="display: flex; align-items: center;">
+        <select style="flex: 1;" id="client" name="client-select">
+            <?php foreach ($this->view->clientsOptions as $client) {?>
+                <option value="<?php echo $client['value']?>"><?php echo $client['label']?></option>
             <?php } ?>
         </select>
-        </div>
-
-        <br><br>
-        <h3>Constituez une équipe</h3>
-        <div style="display: flex; align-items: center;">
-
-            <select style="flex: 1;" id="collaborateur" name="collaborateur" id="collaborateur-select">
-                <?php foreach ($this->view->collaborateurs as $collaborateur) {?>
-                    <option value="<?php echo $collaborateur['value']?>"><?php echo $collaborateur['label']?></option>
-                <?php } ?>
-            </select>
-
-            <button type="button" onclick="addMember()">+</button> <!-- Bouton d'ajout -->
-        </div>
-        <br><br>
-        <div id="addedMembers">
-            <!-- Zone d'affichage des membres de l'équipe ajoutés -->
-            <h3>Membres de l'équipe ajoutés :</h3>
-            <ul id="teamMembers" style="list-style-type: none; padding: 0;"></ul>
-        </div>
-        <br><br>
-        <button type="button" onclick="onSubmitForm()">Valider</button>
     </div>
+    <br>
+    <label for="projet-select">Choisissez un projet:</label>
+    <div style="display: flex; align-items: center;">
 
-    <script>
-        function openPopup() {
-            document.getElementById("popup").style.display = "block";
-        }
-
-        function onSubmitForm() {
-            // Votre code de validation du formulaire ici
-
-            // Fermer le popup
-            document.getElementById("popup").style.display = "none";
-
-            // Empêcher le formulaire de se soumettre normalement
-            return false;
-        }
-
-        function addMember() {
-            const collaborateurSelect = document.getElementById("collaborateur");
-            const selectedCollaborateur = collaborateurSelect.options[collaborateurSelect.selectedIndex];
-            if (selectedCollaborateur.value !== "") {
-                const addedMembersDiv = document.getElementById("addedMembers");
-
-                // Créer un conteneur pour chaque collaborateur ajouté avec les boutons "+" et "-"
-                const collaborateurContainer = document.createElement("div");
-                collaborateurContainer.style.display = "flex";
-                collaborateurContainer.style.alignItems = "center";
-                collaborateurContainer.style.justifyContent = "space-between"; // Aligner les boutons à droite
-                collaborateurContainer.style.marginBottom = "5px"; // Espacement entre les collaborateurs ajoutés
-
-                // Créer le contenu du collaborateur ajouté
-                const collaborateurName = selectedCollaborateur.textContent;
-
-                // Créer le bouton de suppression
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "-";
-                deleteButton.type = "button";
-                deleteButton.style.marginLeft = "10px"; // Espacement entre le bouton "+" et le bouton "-"
-                deleteButton.onclick = function() {
-                    // Supprimer le conteneur entier contenant les informations du collaborateur ajouté
-                    addedMembersDiv.removeChild(collaborateurContainer);
-                };
-
-                collaborateurContainer.textContent = collaborateurName;
-                collaborateurContainer.appendChild(deleteButton);
-
-                addedMembersDiv.appendChild(collaborateurContainer);
-
-                // Vous pouvez également stocker les membres ajoutés dans une variable ou un tableau pour les utiliser ultérieurement
-            }
-        }
-    </script>
+        <select style="flex: 1;" id="projet-select" name="projet-select">
+            <?php foreach ($this->view->projetsOptions as $projet) {?>
+                <option value="<?php echo $projet['value']; ?>"><?php echo $projet['label']; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <br>
+    <label for="chefDeProjets-select">Ajouter un chef de projet :</label>
+    <div style="display: flex; align-items: center;">
+        <select style="flex: 1;" id="chefDeProjets" name="chefDeProjets" id="chefDeProjets-select">
+            <?php foreach ($this->view->chefDeProjets as $chefDeProjet) {?>
+                <option value="<?php echo $chefDeProjet['value']?>"><?php echo $chefDeProjet['label']?></option>
+            <?php } ?>
+        </select>
+        <button type="button" style="margin-left: 20px;">+</button> <!-- Bouton d'ajout -->
+    </div>
+    <br>
+    <label for="developpeur-select">Ajouter des développeurs :</label>
+    <div style="display: flex; align-items: center;">
+        <select style="flex: 1;" name="developpeur" id="developpeur-select">
+            <?php foreach ($this->view->developpeurs as $developpeur) {?>
+                <option value="<?php echo $developpeur['value']?>"><?php echo $developpeur['label']?></option>
+            <?php } ?>
+        </select>
+        <button style="margin-left: 20px;" type="button">+</button> <!-- Bouton d'ajout -->
+    </div>
+    <br><br>
+    <div id="addedMembers">
+        <!-- Zone d'affichage des membres de l'équipe ajoutés -->
+        <h3>Membres de l'équipe ajoutés</h3>
+        <ul id="teamMembers" style="list-style-type: none; padding: 0;"></ul>
+    </div>
+    <button type="button"">Créer</button>
 </div>
